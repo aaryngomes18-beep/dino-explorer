@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dino Explorer</title>
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:#10151c;color:#e8edf2}
+header{padding:24px 16px;text-align:center}
+h1{margin:0 0 12px}
+input{width:90%;max-width:480px;padding:12px;font-size:16px;border-radius:10px;border:0}
+main{max-width:640px;margin:0 auto;padding:16px}
+.card{background:#1a222d;border-radius:12px;padding:16px;margin-bottom:16px}
+.card h2{margin:0 0 4px}
+.meaning{color:#9aa7b4;margin:0 0 12px}
+.pic{height:140px;border-radius:10px;background:#243040;display:flex;align-items:center;justify-content:center;font-size:56px;margin-bottom:12px}
+.pic img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+dt{font-weight:bold;color:#7fd1a0;margin-top:8px}
+dd{margin:0}
+</style>
+</head>
+<body>
+<header>
+<h1>Dino Explorer</h1>
+<input id="q" type="search" placeholder="Search a dinosaur, e.g. Velociraptor">
+</header>
+<main id="results"></main>
+<script>
+const dinos = [
+{name:"Tyrannosaurus rex", meaning:"Tyrant lizard king", period:"Late Cretaceous, about 68-66 million years ago", place:"Western North America", size:"About 12 m (40 ft) long, roughly 8 tonnes", diet:"Carnivore", fact:"It had one of the strongest bites of any land animal known, and it probably both hunted and scavenged.", image:""},
+{name:"Velociraptor", meaning:"Swift thief", period:"Late Cretaceous, about 75-71 million years ago", place:"Mongolia and China", size:"About 2 m (6.5 ft) long including the tail, roughly 15 kg", diet:"Carnivore", fact:"It had feathers, shown by quill knobs on a forearm bone. A famous fossil found in Mongolia in 1971 shows one locked in a fight with a Protoceratops.", image:""},
+{name:"Triceratops", meaning:"Three-horned face", period:"Late Cretaceous, about 68-66 million years ago", place:"Western North America", size:"About 8-9 m (26-30 ft) long, roughly 6-10 tonnes", diet:"Herbivore", fact:"Its skull was one of the largest of any land animal. Its horns and frill were likely used for defense and display.", image:""},
+{name:"Stegosaurus", meaning:"Roof lizard", period:"Late Jurassic, about 155-150 million years ago", place:"Western North America", size:"About 9 m (30 ft) long, around 5 tonnes", diet:"Herbivore", fact:"Its tail spikes are called a thagomizer. Scientists still debate what the back plates were for, such as display or temperature control.", image:""},
+{name:"Spinosaurus", meaning:"Spine lizard", period:"Cretaceous, about 99-93 million years ago", place:"North Africa", size:"About 14 m (46 ft) long. Its exact size is debated.", diet:"Mainly fish, probably other prey too", fact:"It had a long crocodile-like snout and a tall sail on its back. Scientists still debate how much time it spent in water.", image:""}
+];
+const q = document.getElementById("q");
+const out = document.getElementById("results");
+function show(){
+  const t = q.value.trim().toLowerCase();
+  const list = dinos.filter(d => d.name.toLowerCase().includes(t));
+  if(!list.length){ out.innerHTML = "<p>No dinosaur found. Try another name.</p>"; return; }
+  out.innerHTML = list.map(d => `
+  <div class="card">
+    <div class="pic">${d.image ? `<img src="${d.image}" alt="${d.name}">` : "🦖"}</div>
+    <h2>${d.name}</h2>
+    <p class="meaning">Means: ${d.meaning}</p>
+    <dl>
+      <dt>Time</dt><dd>${d.period}</dd>
+      <dt>Where</dt><dd>${d.place}</dd>
+      <dt>Size</dt><dd>${d.size}</dd>
+      <dt>Diet</dt><dd>${d.diet}</dd>
+      <dt>Fact</dt><dd>${d.fact}</dd>
+    </dl>
+  </div>`).join("");
+}
+q.addEventListener("input", show);
+show();
+</script>
+</body>
+  </html>
