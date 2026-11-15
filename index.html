@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dino Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,sans-serif;color:#fff;min-height:100vh}
@@ -25,6 +26,17 @@ h2{margin:0 0 6px;font-size:30px}
 .ico svg{width:24px;height:24px;stroke:#7ee04a;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .lab{font-weight:bold;color:#8ee63a;font-size:18px}
 .txt{font-size:17px;line-height:1.35}
+.read{width:100%;margin-top:4px;padding:14px;border:2px solid #5fd13a;border-radius:999px;background:rgba(95,209,58,.18);color:#8ee63a;font-size:17px;font-weight:bold}
+.book{background:linear-gradient(135deg,#5a3b22,#33200f);padding:12px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.page{background:radial-gradient(ellipse at center,#ecdcb3 0%,#dcc593 70%,#c4a86d 100%);color:#2e1f10;border-radius:8px;padding:20px 18px 26px;box-shadow:inset 0 0 50px rgba(90,55,15,.55)}
+.back{border:0;background:none;color:#6b3f17;font-weight:bold;font-size:16px;padding:0 0 10px;text-decoration:underline}
+.page h2{font-family:Caveat,cursive;font-weight:600;font-size:42px;color:#3a1c08;margin:0 0 10px}
+.sticky{background:#f3e4a0;padding:14px 16px;box-shadow:2px 4px 10px rgba(0,0,0,.35);transform:rotate(-1.2deg);margin:4px 0 18px;line-height:1.6;font-size:16px}
+.sticky b{color:#6b3f17}
+.sketch{height:200px;border:2px dashed #8a6a3b;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#7a5c33;margin-bottom:12px;font-family:Caveat,cursive;font-size:24px;overflow:hidden}
+.sketch img{width:100%;height:100%;object-fit:cover;filter:sepia(.35) contrast(1.05)}
+.page h3{font-family:Caveat,cursive;font-weight:600;font-size:30px;margin:22px 0 4px;color:#5a2d0c;border-bottom:2px solid rgba(90,45,12,.35)}
+.page p{font-family:Georgia,serif;font-size:17px;line-height:1.7;margin:10px 0}
 </style>
 </head>
 <body>
@@ -38,7 +50,18 @@ h2{margin:0 0 6px;font-size:30px}
 <main id="results"></main>
 <script>
 const dinos = [
-{name:"Tyrannosaurus rex", meaning:"Tyrant lizard king", period:"Late Cretaceous, about 68-66 million years ago", place:"Western North America", size:"About 12 m (40 ft) long, roughly 8 tonnes", diet:"Carnivore", fact:"It had one of the strongest bites of any land animal known, and it probably both hunted and scavenged.", image:""},
+{name:"Tyrannosaurus rex", common:"T. rex", meaning:"Tyrant lizard king", period:"Late Cretaceous, about 68-66 million years ago", place:"Western North America", size:"About 12 m (40 ft) long, roughly 8 tonnes", diet:"Carnivore", fact:"It had one of the strongest bites of any land animal known, and it probably both hunted and scavenged.", image:"",
+article:[
+{h:"Meet the tyrant lizard king", p:["Tyrannosaurus rex was named in 1905 by the paleontologist Henry Fairfield Osborn. The name means “tyrant lizard king”. It lived in western North America during the last few million years of the Cretaceous, about 68 to 66 million years ago, and it was one of the largest meat-eating land animals that ever lived."]},
+{h:"Size and body", p:["A big adult was about 12 m (40 ft) long and stood about 3.7 m (12 ft) tall at the hips. Estimates for the weight of the largest adults run from about 6 to 9 tonnes. The skull was up to about 1.5 m long and held around 60 thick teeth, some about 30 cm (12 in) long including the root.","The arms look tiny, but they were not weak. Each was only about 1 m long, yet it was strong and ended in two clawed fingers. Scientists still debate what the arms were used for."]},
+{h:"A bite like no other", p:["T. rex had one of the strongest bites of any land animal known. Estimates run from roughly 35,000 to 57,000 newtons, enough to crush bone. Fossil dung that contains bone fragments shows that it swallowed pieces of bone along with the meat."]},
+{h:"Hunter or scavenger?", p:["For a long time people argued about whether T. rex hunted or only scavenged. Most scientists now think it did both, like many large predators today. Bones of Triceratops and Edmontosaurus carry bite marks that match tyrannosaurs, and some of those wounds show healing. That means the animal escaped and lived on, which is strong evidence of active hunting."]},
+{h:"Senses and movement", p:["T. rex had large brain areas for smell, and its eyes faced forward, which gave it good depth vision. Its inner ear suggests it could hear low sounds well. Many scientists think it was not a sprinter like in the movies, and estimates for its top speed vary widely."]},
+{h:"Growing up", p:["Growth rings in fossil bones show that T. rex grew very fast as a teenager, gaining about 2 kg a day at its fastest, and reached full size at about 20 years old. One famous fossil, Sue, died at about 28. Young T. rex were slimmer and lighter than adults."]},
+{h:"Skin and feathers", p:["Small patches of fossil skin from T. rex show scales on the neck, hips and tail. Some older tyrannosaur relatives had feathers, so scientists still debate how much feather covering, if any, T. rex had."]},
+{h:"A famous fossil: Sue", p:["In 1990, Sue Hendrickson found one of the most complete T. rex skeletons ever discovered, in South Dakota. About 90 percent of the skeleton was found. It is named Sue and is displayed at the Field Museum in Chicago."]},
+{h:"The end", p:["T. rex lived until the mass extinction about 66 million years ago, when an asteroid hit what is now Mexico and ended the age of the non-bird dinosaurs."]}
+]},
 {name:"Velociraptor", meaning:"Swift thief", period:"Late Cretaceous, about 75-71 million years ago", place:"Mongolia and China", size:"About 2 m (6.5 ft) long including the tail, roughly 15 kg", diet:"Carnivore", fact:"It had feathers, shown by quill knobs on a forearm bone. A famous fossil found in Mongolia in 1971 shows one locked in a fight with a Protoceratops.", image:""},
 {name:"Triceratops", meaning:"Three-horned face", period:"Late Cretaceous, about 68-66 million years ago", place:"Western North America", size:"About 8-9 m (26-30 ft) long, roughly 6-10 tonnes", diet:"Herbivore", fact:"Its skull was one of the largest of any land animal. Its horns and frill were likely used for defense and display.", image:""},
 {name:"Stegosaurus", meaning:"Roof lizard", period:"Late Jurassic, about 155-150 million years ago", place:"Western North America", size:"About 9 m (30 ft) long, around 5 tonnes", diet:"Herbivore", fact:"Its tail spikes are called a thagomizer. Scientists still debate what the back plates were for, such as display or temperature control.", image:""},
@@ -52,9 +75,12 @@ diet:'<path d="M3 2v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5
 fact:'<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/>'
 };
 const row = (k,l,v) => `<div class="row"><div class="ico"><svg viewBox="0 0 24 24">${I[k]}</svg></div><div><div class="lab">${l}</div><div class="txt">${v}</div></div></div>`;
+const note = d => `<div class="book"><div class="page"><button class="back">Back to list</button><h2>${d.name}</h2><div class="sticky"><b>Common name:</b> ${d.common||d.name}<br><b>Species:</b> ${d.name}<br><b>Time:</b> ${d.period}<br><b>Where:</b> ${d.place}<br><b>Diet:</b> ${d.diet}<br><b>Size:</b> ${d.size}</div><div class="sketch">${d.image ? `<img src="${d.image}" alt="${d.name}">` : "Sketch coming soon"}</div>${d.article.map(s => `<h3>${s.h}</h3>${s.p.map(t => `<p>${t}</p>`).join("")}`).join("")}</div></div>`;
 const q = document.getElementById("q");
 const out = document.getElementById("results");
+let cur = null;
 function show(){
+  if(cur){ out.innerHTML = note(cur); return; }
   const t = q.value.trim().toLowerCase();
   const list = dinos.filter(d => d.name.toLowerCase().includes(t));
   if(!list.length){ out.innerHTML = "<p>No dinosaur found. Try another name.</p>"; return; }
@@ -68,9 +94,15 @@ function show(){
     ${row("size","Size",d.size)}
     ${row("diet","Diet",d.diet)}
     ${row("fact","Fact",d.fact)}
+    ${d.article ? `<button class="read" data-i="${dinos.indexOf(d)}">Read the full note</button>` : ""}
   </div>`).join("");
 }
-q.addEventListener("input", show);
+out.addEventListener("click", e => {
+  const r = e.target.closest(".read");
+  if(r){ cur = dinos[r.dataset.i]; show(); scrollTo(0,0); }
+  if(e.target.closest(".back")){ cur = null; show(); scrollTo(0,0); }
+});
+q.addEventListener("input", () => { cur = null; show(); });
 show();
 </script>
 </body>
